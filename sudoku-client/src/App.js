@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Header} from './components/Header';
+import Header from './components/Header';
+import SudokuTable from './components/SudokuTable';
 
 class App extends Component {
 state = {
@@ -28,6 +29,7 @@ state = {
     return (
       <div className="App">
         <Header/>
+        <SudokuTable/>
       {/* data */}
         <p className="App-intro">{this.state.data}</p>
       </div>

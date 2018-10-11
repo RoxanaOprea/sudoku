@@ -1,7 +1,9 @@
 import React from 'react';
 
-export const Header = () => {
+const Header = () => {
     return(
-        <h1>Sudoku Game</h1>
+        <div>Sudoku Game</div>
     )
 }
+
+export default Header;
