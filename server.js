@@ -1,11 +1,37 @@
-const express = require('express');
+const mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const Data = require("./data");
+
+const API_PORT = 3001;
 const app = express();
-const port = process.env.PORT || 5000;
+const router = express.Router();
 
-// console.log that your server is up and running
-app.listen(port, () => console.log(`Listening on port ${port}`));
+// this is our MongoDB database
+const dbRoute = "mongodb://<user>:<password>@<host>:<port>/<database>";
 
-// create a GET route
-app.get('/express_backend', (req, res) => {
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
+(async () => {
+  // connects our back end code with the database
+  try {
+    await mongoose.connect(
+      dbRoute,
+      { useNewUrlParser: true }
+    );
+    console.log("connected to the database");
+  } catch (err) {
+    console.error(`MongoDB connection error: ${err.message}`);
+  }
+
+  // (optional) only made for logging and
+  // bodyParser, parses the request body to be a readable json format
+  app
+    .use(bodyParser.urlencoded({ extended: false }))
+    .use(bodyParser.json())
+    .use(logger("dev"))
+    // Define routes here
+    .get("/status", (req, res) => {
+      res.send("Web server is up and running");
+    })
+    .listen(4000);
+})();
