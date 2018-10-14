@@ -14,7 +14,7 @@ if (error) {
 
 (async function connectToDatabase() {
   // connects our back end code with the database
-  const { DB_USER, DB_USER, DB_HOST, DB_PORT, DB_NAME } = process.env;
+  const { DB_USER, DB_HOST, DB_PORT, DB_NAME } = process.env;
   const dbRoute = `mongodb://${DB_USER}:${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
   try {
     await mongoose.connect(
