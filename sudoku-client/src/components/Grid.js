@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-
+import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
   root: {
@@ -22,11 +21,28 @@ const styles = theme => ({
   }
 });
 
-const cells = [
+const sudokuTable = [
   {
     number: 1,
     digit: "3",
-    cols: 9
+    cols: [
+      {
+        value: 3,
+        disable: true
+      },
+      {
+        value: 5,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      }
+    ]
   }
 ];
 
@@ -36,10 +52,18 @@ function GridListt(props) {
   return (
     <div className={classes.root}>
       <GridList cellHeight={60} className={classes.gridList} cols={9}>
-        {cells.map(cell => (
-          <GridListTile key={cell.number} cols={cell.cols || 1}>
-          </GridListTile>
-        ))}
+        {sudokuTable.map(row =>
+          row.cols.map(cell => (
+            <TextField
+              id="outlined-bare"
+              className={classes.textField}
+              disabled={cell.disable}
+              defaultValue={cell.value}
+              margin="normal"
+              variant="outlined"
+            />
+          ))
+        )}
       </GridList>
     </div>
   );
