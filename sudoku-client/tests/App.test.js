@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../src/App';
 import Header from '../src/components/Header';
-import SudokuTable from '../src/components/SudokuTable';
+import Sudoku from '../src/components/Sudoku';
 import Buttons from '../src/components/Buttons';
 
 it('renders without crashing', () => {
@@ -20,7 +20,7 @@ it('renders', () => {
 
 it('renders', () => {
   const table = document.createElement('div');
-  ReactDOM.render(<SudokuTable/>, table);
+  ReactDOM.render(<Sudoku/>, table);
   ReactDOM.unmountComponentAtNode(table);
 });
 
