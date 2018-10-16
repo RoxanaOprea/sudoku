@@ -14,7 +14,7 @@ const styles = theme => ({
   },
   gridList: {
     width: 500,
-    height: 450
+
   },
   subheader: {
     width: "100%"
@@ -27,11 +27,31 @@ const sudokuTable = [
     digit: "3",
     cols: [
       {
+        value: 5,
+        disable: true
+      },
+      {
         value: 3,
         disable: true
       },
       {
-        value: 5,
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 7,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
         disable: false
       },
       {
@@ -43,7 +63,343 @@ const sudokuTable = [
         disable: false
       }
     ]
-  }
+  },
+  {
+    number: 1,
+    digit: "3",
+    cols: [
+      {
+        value: 6,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 1,
+        disable: true
+      },
+      {
+        value: 9,
+        disable: true
+      },
+      {
+        value: 5,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+    ]
+  },
+  {
+    number: 1,
+    digit: "3",
+    cols: [
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 9,
+        disable: true
+      },
+      {
+        value: 8,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 6,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      }
+    ]
+  },
+  {
+    number: 1,
+    digit: "3",
+    cols: [
+      {
+        value: 8,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 6,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 3,
+        disable: true
+      }
+    ]
+  },
+  {
+    number: 1,
+    digit: "3",
+    cols: [
+      {
+        value: 4,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 8,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 3,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 1,
+        disable: true
+      }
+    ]
+  },
+  {
+    number: 1,
+    digit: "3",
+    cols: [
+      {
+        value: 7,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 2,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 6,
+        disable: true
+      }
+    ]
+  },
+  {
+    number: 1,
+    digit: "3",
+    cols: [
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 6,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 2,
+        disable: true
+      },
+      {
+        value: 8,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      }
+    ]
+  },
+  {
+    number: 1,
+    digit: "3",
+    cols: [
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 4,
+        disable: true
+      },
+      {
+        value: 1,
+        disable: true
+      },
+      {
+        value: 9,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 5,
+        disable: true
+      }
+    ]
+  },
+  {
+    number: 1,
+    digit: "3",
+    cols: [
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 8,
+        disable: true
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: null,
+        disable: false
+      },
+      {
+        value: 7,
+        disable: true
+      },
+      {
+        value: 9,
+        disable: true
+      }
+    ]
+  },
 ];
 
 function GridListt(props) {
@@ -51,7 +407,7 @@ function GridListt(props) {
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={60} className={classes.gridList} cols={9}>
+      <GridList cellHeight={60} className={classes.gridList} cols={9} spacing={0}>
         {sudokuTable.map(row =>
           row.cols.map(cell => (
             <TextField
@@ -59,8 +415,9 @@ function GridListt(props) {
               className={classes.textField}
               disabled={cell.disable}
               defaultValue={cell.value}
-              margin="normal"
+              margin="none"
               variant="outlined"
+              padding="none"
             />
           ))
         )}
@@ -69,7 +426,7 @@ function GridListt(props) {
   );
 }
 
-GridList.propTypes = {
+GridListt.propTypes = {
   classes: PropTypes.object.isRequired
 };
 

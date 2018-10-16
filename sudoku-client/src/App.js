@@ -12,13 +12,14 @@ class App extends Component {
   componentDidMount() {
     // Call our fetch function below once the component mounts
     this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
+      .then(res => this.setState({ data: res.statusText }))
       .catch(err => console.log(err));
   }
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch("/express_backend");
-    const body = await response.json();
+    const response = await fetch("http://localhost:3000/status");
+    
+    const body = await response;
 
     if (response.status !== 200) {
       throw Error(body.message);
@@ -27,6 +28,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.data);
     return (
       <div className="App">
         <Header />
