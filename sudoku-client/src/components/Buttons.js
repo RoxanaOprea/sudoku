@@ -8,9 +8,8 @@ class Buttons extends Component {
         <Button variant="outlined" size="medium" color="primary">
           Reset Game
         </Button>
-
         <Button variant="outlined" size="medium" color="secondary">
-          Check number
+          Solve Game
         </Button>
       </div>
     );
