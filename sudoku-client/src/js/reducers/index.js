@@ -386,10 +386,8 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_NUMBER:
-      return {
-        ...state,
-        sudokuTable: state.sudokuTable.concat(action.payload)
-      };
+      return {};
+
     default:
       return state;
   }

@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
-import Header from "./components/Header";
-import Sudoku from "./components/Sudoku";
-import Buttons from "./components/Buttons";
+import Login from "./components/Login";
 
 class App extends Component {
   state = {
-    data: null
+    users: []
   };
 
   componentDidMount() {
@@ -17,8 +15,10 @@ class App extends Component {
   }
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch("http://localhost:3000/status");
-    
+    const response = await fetch("http://localhost:3001/users")
+      .then(res => res.json())
+      .then(users => this.setState({users}));
+
     const body = await response;
 
     if (response.status !== 200) {
@@ -31,9 +31,7 @@ class App extends Component {
     console.log(this.state.data);
     return (
       <div className="App">
-        <Header />
-        <Sudoku />
-        <Buttons />
+        <Login />
         {/* data */}
         <p className="App-intro">{this.state.data}</p>
       </div>
