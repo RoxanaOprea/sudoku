@@ -4,14 +4,17 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const dotenv = require("dotenv");
-const Data = require("./data");
+const router = express.Router();
 const uuid = require("uuid");
 const FileStore = require("session-file-store")(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const axios = require("axios");
 const bcrypt = require("bcrypt-nodejs");
-const util = require('util')
+const util = require('util');
+const User = require("../data");
+const jwt = require('jsonwebtoken');
+const config = require('./config');
 
 const users = [{ id: "2f24vvg", email: "test@test.com", password: "password" }];
 
@@ -95,17 +98,29 @@ if (error) {
 
     // create the homepage route at '/'
     .get("/", (req, res) => {
-      console.log("Inside the homepage callback function");
-      console.log(req.sessionID);
       res.send(`You hit home page!\n`);
     });
 
   // create the login get and post routes
   app.get("/login", (req, res) => {
-    console.log("Inside GET /login callback function");
-    console.log(req.sessionID);
     res.send(`You got the login page!\n`);
   });
+
+  app.post("/register", (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const newUser = new User();
+    newUser.email = email;
+    newUser.password = password;
+    newUser.save((err, savedUser) => {
+      if(err) {
+        console.log(err);
+        return res.status(500).send();
+      }
+      return res.status(200).send(0);
+    })
+  })
 
   app.post("/login", (req, res, next) => {
     console.log("Inside POST /login callback");

@@ -21,19 +21,18 @@ class App extends Component {
 
     const body = await response;
 
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
+    if (response.status !== 200) throw Error(body.message);
+   
     return body;
   };
 
   render() {
-    console.log(this.state.data);
+    console.log(this.state.users);
     return (
       <div className="App">
-        <Login />
+        <Login users={this.state.users}/>
         {/* data */}
-        <p className="App-intro">{this.state.data}</p>
+        <p className="App-intro">{this.state.users}</p>
       </div>
     );
   }
