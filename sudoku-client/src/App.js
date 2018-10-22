@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import Login from "./components/Login";
+import Register from "./components/Register";
+
 
 class App extends Component {
   state = {
@@ -30,8 +32,9 @@ class App extends Component {
     console.log(this.state.users);
     return (
       <div className="App">
-        <Login users={this.state.users}/>
-        {/* data */}
+      <h1>Login or Register</h1>
+        <Login/>
+        <Register />
         <p className="App-intro">{this.state.users}</p>
       </div>
     );

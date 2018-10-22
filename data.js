@@ -20,6 +20,8 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
+const User = mongoose.model("User", UserSchema);
+
 //authenticate input against database
 UserSchema.statics.authenticate = function (email, password, callback) {
   User.findOne({ email: email })
@@ -40,6 +42,18 @@ UserSchema.statics.authenticate = function (email, password, callback) {
       })
     });
 }
+
+UserSchema.statics.register = function({ email, password }, callback) {
+  const user = new User({ email, password });
+  user.save(function(err, user) {
+    if (err) {
+      return callback(err);
+    } else {
+      err.status = 500;
+      return callback(err);
+    }
+  });
+};
 
 // export the new Schema so we could modify it using Node.js
 module.exports = mongoose.model("User", UserSchema);

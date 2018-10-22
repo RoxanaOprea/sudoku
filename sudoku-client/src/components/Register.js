@@ -21,25 +21,27 @@ const styles = theme => ({
   }
 });
 
-class Login extends React.Component {
+class Register extends React.Component {
   state = {
     user: [{ email: "", password: "" }]
   };
 
-  handleSubmit = (event, email, password) => {
+  handleSubmit = event => {
     event.preventDefault();
 
-    fetch("http://localhost:3001/login", {
+    fetch("http://localhost:3001/register", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({
+        email: this.state.user,
+        password: this.state.password
+      }),
       headers: {
-        "Content-Type": "application/json",
+        "content-type": "application/json",
+        'Access-Control-Allow-Origin':'*'
       }
-     
     })
       .then(response => response.json())
-      .then(user => console.log(`Login ${user}`))
-      .catch(err => console.log(err));
+      .then(newUser => console.log(newUser));
   };
 
   render() {
@@ -53,7 +55,7 @@ class Login extends React.Component {
         onSubmit={this.handleSubmit}
       >
         <TextField
-          id="outlined-email-input"
+          id="register-email-input"
           label="Email"
           className={classes.textField}
           type="email"
@@ -63,7 +65,7 @@ class Login extends React.Component {
           variant="outlined"
         />
         <TextField
-          id="outlined-password-input"
+          id="register-password-input"
           label="Password"
           className={classes.textField}
           type="password"
@@ -72,15 +74,15 @@ class Login extends React.Component {
           variant="outlined"
         />
         <Button type="submit" variant="outlined" color="primary" className={classes.button}>
-          Login
+          Register
         </Button>
       </form>
     );
   }
 }
 
-Login.propTypes = {
+Register.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Register);
