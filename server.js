@@ -7,11 +7,11 @@ const dotenv = require("dotenv");
 const uuid = require("uuid");
 const FileStore = require("session-file-store")(session);
 const passport = require("passport");
+const User = require("./data");
 const LocalStrategy = require("passport-local").Strategy;
 const axios = require("axios");
 const bcrypt = require("bcrypt-nodejs");
 const util = require('util');
-const User = require("./data");
 const jwt = require('jsonwebtoken');
 const config = require('./config');
 

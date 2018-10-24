@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
   state = {
@@ -19,12 +19,12 @@ class App extends Component {
   callBackendAPI = async () => {
     const response = await fetch("http://localhost:3001/users")
       .then(res => res.json())
-      .then(users => this.setState({users}));
+      .then(users => this.setState({ users }));
 
     const body = await response;
 
     if (response.status !== 200) throw Error(body.message);
-   
+
     return body;
   };
 
@@ -32,10 +32,12 @@ class App extends Component {
     console.log(this.state.users);
     return (
       <div className="App">
-      <h1>Login or Register</h1>
-        <Login/>
-        <Register />
-        <p className="App-intro">{this.state.users}</p>
+        <Router>
+          <div>
+            <Route exact path="/" component={Login} />
+            <Route path="/register" component={Register} />
+          </div>
+        </Router>
       </div>
     );
   }
