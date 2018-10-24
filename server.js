@@ -23,6 +23,28 @@ if (error) {
   process.exit(1);
 }
 
+// configure passport.js to use the local strategy
+passport.use(
+  new LocalStrategy({usernameField: "email"}, (email, password, done) => {
+    User.findOne({email, password}, function (err, user) {
+      done(err, user);
+    });
+  })
+);
+
+// tell passport how to serialize the user
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// deserialize user
+passport.deserializeUser((id, done) => {
+  axios
+    .get(`http://localhost:3001/users/${id}`)
+    .then(res => done(null, res.data))
+    .catch(error => done(error, false));
+});
+
 (async function connectToDatabase() {
   // connects our back end code with the database
   const { DB_HOST, DB_PORT, DB_NAME } = process.env;
@@ -61,6 +83,12 @@ if (error) {
     .use(bodyParser.urlencoded({ extended: false }))
     .use(bodyParser.json())
     .use(logger("dev"))
+    .use((req, res, next) => {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+      next();
+    })
 
 
   app.post("/register", (req, res) => {
@@ -75,6 +103,7 @@ if (error) {
         console.log(err);
         return res.status(500).send();
       }
+      console.log(JSON.stringify(newUser))
       return res.status(200).send(JSON.stringify(newUser));
     });
   })

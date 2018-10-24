@@ -29,7 +29,7 @@ const styles = theme => ({
   },
   smallContainer: {
     width: "200px",
-    margin: "auto",
+    margin: "auto"
   },
   link: {
     marginRight: "50px"
@@ -37,9 +37,19 @@ const styles = theme => ({
 });
 
 class Register extends React.Component {
-  state = {
-    user: [{ email: "", password: "" }]
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: null,
+      password: null,
+      newUsers: []
+    };
+  }
+
+  handleChange(event, inputName) {
+    this.setState({ [inputName]: event.target.value });
+  }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -47,20 +57,29 @@ class Register extends React.Component {
     fetch("http://localhost:3001/register", {
       method: "POST",
       body: JSON.stringify({
-        email: this.state.user,
+        email: this.state.email,
         password: this.state.password
       }),
       headers: {
-        "content-type": "application/json",
-        "Access-Control-Allow-Origin": "*"
+        "Content-Type": "application/json",
+        Accept: "application/json"
       }
     })
-      .then(response => response.json())
-      .then(newUser => console.log(newUser));
+      .then(response => {
+        return response.json();
+      })
+      .then(res => {
+        const users = this.state.newUsers;
+        users.push({ email: res.email, password: res.password });
+
+        this.setState({ newUsers: users });
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
     const { classes } = this.props;
+    console.log(this.state.newUsers);
 
     return (
       <div>
@@ -88,6 +107,7 @@ class Register extends React.Component {
                 autoComplete="email"
                 margin="normal"
                 variant="outlined"
+                onChange={event => this.handleChange(event, "email")}
               />
               <TextField
                 id="register-password-input"
@@ -97,6 +117,7 @@ class Register extends React.Component {
                 autoComplete="current-password"
                 margin="normal"
                 variant="outlined"
+                onChange={event => this.handleChange(event, "password")}
               />
               <Button
                 type="submit"
@@ -108,7 +129,9 @@ class Register extends React.Component {
               </Button>
             </form>
             <div className={classes.smallContainer}>
-              <Link to="/" className={classes.link}>Back to Login Page</Link>
+              <Link to="/" className={classes.link}>
+                Back to Login Page
+              </Link>
             </div>
           </div>
         </MuiThemeProvider>

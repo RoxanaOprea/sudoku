@@ -7,7 +7,7 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   container: {
@@ -41,16 +41,28 @@ const styles = theme => ({
 });
 
 class Login extends React.Component {
-  state = {
-    user: [{ email: "", password: "" }]
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: null,
+      password: null
+    };
+  }
+
+  handleChange(event, inputName) {
+    this.setState({ [inputName]: event.target.value });
+  }
 
   handleSubmit = (event, email, password) => {
     event.preventDefault();
 
     fetch("http://localhost:3001/login", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      }),
       headers: {
         "Content-Type": "application/json"
       }
@@ -88,6 +100,7 @@ class Login extends React.Component {
                 autoComplete="email"
                 margin="normal"
                 variant="outlined"
+                onChange={event => this.handleChange(event, "email")}
               />
               <TextField
                 id="outlined-password-input"
@@ -97,6 +110,7 @@ class Login extends React.Component {
                 autoComplete="current-password"
                 margin="normal"
                 variant="outlined"
+                onChange={event => this.handleChange(event, "password")}
               />
               <div className={classes.button}>
                 <Button type="Submit" variant="outlined" color="primary">
@@ -104,7 +118,7 @@ class Login extends React.Component {
                 </Button>
               </div>
             </form>
-            <p className={classes.para}>Not registered yet?  Register Now!</p>
+            <p className={classes.para}>Not registered yet? Register Now!</p>
             <Link to="/register">Register</Link>
           </div>
         </MuiThemeProvider>
