@@ -30,10 +30,6 @@ const styles = theme => ({
   root: {
     flexGrow: 1
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
   para: {
     margin: "auto",
     paddingBottom: "10px"
@@ -70,6 +66,7 @@ class Login extends React.Component {
       .then(response => response.json())
       .then(user => console.log(`Login ${user}`))
       .catch(err => console.log(err));
+      
   };
 
   render() {

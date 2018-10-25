@@ -7,7 +7,8 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+
 
 const styles = theme => ({
   container: {
@@ -62,7 +63,7 @@ class Register extends React.Component {
       }),
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        "Accept": "application/json"
       }
     })
       .then(response => {
@@ -73,8 +74,10 @@ class Register extends React.Component {
         users.push({ email: res.email, password: res.password });
 
         this.setState({ newUsers: users });
+        this.props.history.push("/home");
       })
       .catch(err => console.log(err));
+      this.props.history.push("/home");
   };
 
   render() {
@@ -114,6 +117,7 @@ class Register extends React.Component {
                 label="Password"
                 className={classes.textField}
                 type="password"
+                name="password"
                 autoComplete="current-password"
                 margin="normal"
                 variant="outlined"
@@ -144,4 +148,4 @@ Register.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Register);
+export default (withRouter, withStyles(styles)(Register));

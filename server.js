@@ -109,6 +109,12 @@ passport.deserializeUser((id, done) => {
   })
 
   app.post("/login", (req, res, next) => {
+    const email = res.body.email;
+    const password = res.body.password;
+
+    User.findOne({email})
+    .then(user => {console.log(user)});
+    
     console.log("Inside POST /login callback");
     passport.authenticate("local", (err, user, info) => {
       console.log("Inside passport.authenticate() callback");

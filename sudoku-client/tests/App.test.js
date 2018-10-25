@@ -1,38 +1,58 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from '../src/App';
-import Header from '../src/components/Header';
-import Sudoku from '../src/components/Sudoku';
-import Buttons from '../src/components/Buttons';
-import Grid from '../src/components/Grid';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import App from '../src/App';
+// import Home from '../src/components/Home';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+// it('renders without crashing', () => {
+//   const div = document.createElement('div');
+//   ReactDOM.render(<App />, div);
+//   ReactDOM.unmountComponentAtNode(div);
+// });
+
+// it('renders Home component without crushing', () => {
+//   const div = document.createElement('div');
+//   ReactDOM.render(<Home/>, div);
+//   ReactDOM.unmountComponentAtNode(div)
+// });
+
+import React from "react";
+import Enzyme, { shallow } from "enzyme";
+import App from "../src/App";
+import Adapter from "enzyme-adapter-react-16.3";
+import Login from "../src/components/Login";
+import Register from "../src/components/Register";
+import Home from "../src/components/Home";
+
+Enzyme.configure({ adapter: new Adapter() });
+
+describe("Search component", () => {
+  test("renders", () => {
+    const wrapper = shallow(<App />);
+
+    expect(wrapper.exists()).toBe(true);
+  });
 });
 
+describe("Login component", () => {
+  test("renders", () => {
+    const login = shallow(<Login/>);
 
-it('renders', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Header/>, div);
-  ReactDOM.unmountComponentAtNode(div);
+    expect(login.exists()).toBe(true);
+  })
 });
 
-it('renders', () => {
-  const table = document.createElement('div');
-  ReactDOM.render(<Sudoku/>, table);
-  ReactDOM.unmountComponentAtNode(table);
+describe("Register component", () => {
+  test("renders", () => {
+    const register = shallow(<Register/>);
+
+    expect(register.exists()).toBe(true);
+  })
 });
 
-it('renders', () => {
-  const buttons = document.createElement('div');
-  ReactDOM.render(<Buttons/>, buttons);
-  ReactDOM.unmountComponentAtNode(buttons);
-});
+describe("Home component", () => {
+  test("renders", () => {
+    const home = shallow(<Home/>);
 
-it('renders', () => {
-  const ul = document.createElement('ul');
-  ReactDOM.render(<Grid/>, ul);
-  ReactDOM.unmountComponentAtNode(ul);
+    expect(home.exists()).toBe(true);
+  })
 })
