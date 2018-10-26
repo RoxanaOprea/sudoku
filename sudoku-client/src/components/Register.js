@@ -9,7 +9,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Link, withRouter } from "react-router-dom";
 
-
 const styles = theme => ({
   container: {
     display: "flex",
@@ -63,7 +62,7 @@ class Register extends React.Component {
       }),
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        Accept: "application/json"
       }
     })
       .then(response => {
@@ -77,20 +76,19 @@ class Register extends React.Component {
         this.props.history.push("/home");
       })
       .catch(err => console.log(err));
-      this.props.history.push("/home");
+    this.props.history.push("/home");
   };
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.newUsers);
 
     return (
       <div>
-        <MuiThemeProvider>
+        <MuiThemeProvider theme={{}}>
           <AppBar title="Registration">
             <Toolbar>
               <Typography variant="h6" color="inherit">
-                Registration Page
+                {"Registration Page"}
               </Typography>
             </Toolbar>
           </AppBar>
@@ -124,17 +122,18 @@ class Register extends React.Component {
                 onChange={event => this.handleChange(event, "password")}
               />
               <Button
+                id="register-button"
                 type="submit"
                 variant="outlined"
                 color="primary"
                 className={classes.button}
               >
-                Register
+                {"Register"}
               </Button>
             </form>
             <div className={classes.smallContainer}>
-              <Link to="/" className={classes.link}>
-                Back to Login Page
+              <Link to="/" className={classes.link} id="login-page" title="Login">
+                {"Back to Login Page"}
               </Link>
             </div>
           </div>

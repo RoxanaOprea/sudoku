@@ -11,10 +11,9 @@ const User = require("./data");
 const LocalStrategy = require("passport-local").Strategy;
 const axios = require("axios");
 const bcrypt = require("bcrypt-nodejs");
-const util = require('util');
-const jwt = require('jsonwebtoken');
-const config = require('./config');
-
+const util = require("util");
+const jwt = require("jsonwebtoken");
+const config = require("./config");
 
 // Load configuration from .env file. Exit if any error occurs
 const { error } = dotenv.config();
@@ -25,8 +24,8 @@ if (error) {
 
 // configure passport.js to use the local strategy
 passport.use(
-  new LocalStrategy({usernameField: "email"}, (email, password, done) => {
-    User.findOne({email, password}, function (err, user) {
+  new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+    User.findOne({ email, password }, function(err, user) {
       done(err, user);
     });
   })
@@ -85,11 +84,13 @@ passport.deserializeUser((id, done) => {
     .use(logger("dev"))
     .use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
-      res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+      res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+      res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      );
       next();
-    })
-
+    });
 
   app.post("/register", (req, res) => {
     const email = req.body.email;
@@ -103,24 +104,36 @@ passport.deserializeUser((id, done) => {
         console.log(err);
         return res.status(500).send();
       }
-      console.log(JSON.stringify(newUser))
+      console.log(JSON.stringify(newUser));
       return res.status(200).send(JSON.stringify(newUser));
     });
-  })
+  });
 
   app.post("/login", (req, res, next) => {
     const email = res.body.email;
     const password = res.body.password;
 
-    User.findOne({email})
-    .then(user => {console.log(user)});
-    
+    // User.findOne({ email: req.body.email }, (req, err) => {
+    //   if (err) throw err;
+    //   if (!user) {
+    //     res.status(401).json({ message: "User not found!" });
+    //   } else if (user) {
+    //     if (passport.authenticate(req.body.password)) {
+    //       res.status(401).json({ message: "Wrong password" });
+    //     } else {
+    //       return res.json({
+    //         token: jwt.sign({ email: user.email, id: user.id }, "RESTFULAPIs")
+    //       });
+    //     }
+    //   }
+    // });
+
     console.log("Inside POST /login callback");
     passport.authenticate("local", (err, user, info) => {
       console.log("Inside passport.authenticate() callback");
       req.login(user, err => {
         console.log(user);
-        return res.send('Autentificare cu succes');
+        return res.send("Autentificare cu succes");
       });
     })(req, res, next);
   });

@@ -7,7 +7,7 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 const styles = theme => ({
   container: {
@@ -66,14 +66,13 @@ class Login extends React.Component {
       .then(response => response.json())
       .then(user => console.log(`Login ${user}`))
       .catch(err => console.log(err));
-      
   };
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <MuiThemeProvider>
+        <MuiThemeProvider theme={{}}>
           <div>
             <AppBar title="Login">
               <Toolbar>
@@ -128,4 +127,4 @@ Login.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Login);
+export default (withRouter, withStyles(styles)(Login));
