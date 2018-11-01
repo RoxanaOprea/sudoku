@@ -20,6 +20,7 @@ ShallowWrapper {
       "classes": Object {
         "button": "Register-button-3",
         "container": "Register-container-1",
+        "error": "Register-error-7",
         "input": "Register-input-4",
         "link": "Register-link-6",
         "smallContainer": "Register-smallContainer-5",
@@ -39,6 +40,7 @@ ShallowWrapper {
         "classes": Object {
           "button": "Register-button-3",
           "container": "Register-container-1",
+          "error": "Register-error-7",
           "input": "Register-input-4",
           "link": "Register-link-6",
           "smallContainer": "Register-smallContainer-5",
@@ -78,6 +80,7 @@ ShallowWrapper {
       Object {
         "button": "Register-button-3",
         "container": "Register-container-1",
+        "error": "Register-error-7",
         "input": "Register-input-4",
         "link": "Register-link-6",
         "smallContainer": "Register-smallContainer-5",
@@ -98,9 +101,7 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <MuiThemeProvider
-        theme={Object {}}
-      >
+      "children": Array [
         <WithStyles(AppBar)
           title="Registration"
         >
@@ -112,7 +113,7 @@ ShallowWrapper {
               Registration Page
             </WithStyles(Typography)>
           </WithStyles(Toolbar)>
-        </WithStyles(AppBar)>
+        </WithStyles(AppBar)>,
         <div>
           <form
             autoComplete="off"
@@ -164,19 +165,285 @@ ShallowWrapper {
               id="login-page"
               replace={false}
               title="Login"
-              to="/"
+              to="/login"
             >
               Back to Login Page
             </Link>
           </div>
-        </div>
-      </MuiThemeProvider>,
+        </div>,
+      ],
     },
     "ref": null,
-    "rendered": Object {
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <WithStyles(Toolbar)>
+            <WithStyles(Typography)
+              color="inherit"
+              variant="h6"
+            >
+              Registration Page
+            </WithStyles(Typography)>
+          </WithStyles(Toolbar)>,
+          "title": "Registration",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <WithStyles(Typography)
+              color="inherit"
+              variant="h6"
+            >
+              Registration Page
+            </WithStyles(Typography)>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": "Registration Page",
+              "color": "inherit",
+              "variant": "h6",
+            },
+            "ref": null,
+            "rendered": "Registration Page",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <form
+              autoComplete="off"
+              className="Register-container-1"
+              noValidate={true}
+              onSubmit={[Function]}
+            >
+              <TextField
+                autoComplete="email"
+                className="Register-textField-2"
+                id="register-email-input"
+                label="Email"
+                margin="normal"
+                name="email"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                type="email"
+                variant="outlined"
+              />
+              <TextField
+                autoComplete="current-password"
+                className="Register-textField-2"
+                id="register-password-input"
+                label="Password"
+                margin="normal"
+                name="password"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                type="password"
+                variant="outlined"
+              />
+              <WithStyles(Button)
+                className="Register-button-3"
+                color="primary"
+                id="register-button"
+                type="submit"
+                variant="outlined"
+              >
+                Register
+              </WithStyles(Button)>
+            </form>,
+            <div
+              className="Register-smallContainer-5"
+            >
+              <Link
+                className="Register-link-6"
+                id="login-page"
+                replace={false}
+                title="Login"
+                to="/login"
+              >
+                Back to Login Page
+              </Link>
+            </div>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "autoComplete": "off",
+              "children": Array [
+                null,
+                <TextField
+                  autoComplete="email"
+                  className="Register-textField-2"
+                  id="register-email-input"
+                  label="Email"
+                  margin="normal"
+                  name="email"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  type="email"
+                  variant="outlined"
+                />,
+                <TextField
+                  autoComplete="current-password"
+                  className="Register-textField-2"
+                  id="register-password-input"
+                  label="Password"
+                  margin="normal"
+                  name="password"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  type="password"
+                  variant="outlined"
+                />,
+                <WithStyles(Button)
+                  className="Register-button-3"
+                  color="primary"
+                  id="register-button"
+                  type="submit"
+                  variant="outlined"
+                >
+                  Register
+                </WithStyles(Button)>,
+              ],
+              "className": "Register-container-1",
+              "noValidate": true,
+              "onSubmit": [Function],
+            },
+            "ref": null,
+            "rendered": Array [
+              null,
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "autoComplete": "email",
+                  "className": "Register-textField-2",
+                  "id": "register-email-input",
+                  "label": "Email",
+                  "margin": "normal",
+                  "name": "email",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "type": "email",
+                  "variant": "outlined",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "autoComplete": "current-password",
+                  "className": "Register-textField-2",
+                  "id": "register-password-input",
+                  "label": "Password",
+                  "margin": "normal",
+                  "name": "password",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "type": "password",
+                  "variant": "outlined",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Register",
+                  "className": "Register-button-3",
+                  "color": "primary",
+                  "id": "register-button",
+                  "type": "submit",
+                  "variant": "outlined",
+                },
+                "ref": null,
+                "rendered": "Register",
+                "type": [Function],
+              },
+            ],
+            "type": "form",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Link
+                className="Register-link-6"
+                id="login-page"
+                replace={false}
+                title="Login"
+                to="/login"
+              >
+                Back to Login Page
+              </Link>,
+              "className": "Register-smallContainer-5",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Back to Login Page",
+                "className": "Register-link-6",
+                "id": "login-page",
+                "replace": false,
+                "title": "Login",
+                "to": "/login",
+              },
+              "ref": null,
+              "rendered": "Back to Login Page",
+              "type": [Function],
+            },
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "class",
+      "nodeType": "host",
       "props": Object {
         "children": Array [
           <WithStyles(AppBar)
@@ -242,14 +509,13 @@ ShallowWrapper {
                 id="login-page"
                 replace={false}
                 title="Login"
-                to="/"
+                to="/login"
               >
                 Back to Login Page
               </Link>
             </div>
           </div>,
         ],
-        "theme": Object {},
       },
       "ref": null,
       "rendered": Array [
@@ -355,7 +621,7 @@ ShallowWrapper {
                   id="login-page"
                   replace={false}
                   title="Login"
-                  to="/"
+                  to="/login"
                 >
                   Back to Login Page
                 </Link>
@@ -371,6 +637,7 @@ ShallowWrapper {
               "props": Object {
                 "autoComplete": "off",
                 "children": Array [
+                  null,
                   <TextField
                     autoComplete="email"
                     className="Register-textField-2"
@@ -413,6 +680,7 @@ ShallowWrapper {
               },
               "ref": null,
               "rendered": Array [
+                null,
                 Object {
                   "instance": null,
                   "key": undefined,
@@ -484,7 +752,7 @@ ShallowWrapper {
                   id="login-page"
                   replace={false}
                   title="Login"
-                  to="/"
+                  to="/login"
                 >
                   Back to Login Page
                 </Link>,
@@ -501,7 +769,7 @@ ShallowWrapper {
                   "id": "login-page",
                   "replace": false,
                   "title": "Login",
-                  "to": "/",
+                  "to": "/login",
                 },
                 "ref": null,
                 "rendered": "Back to Login Page",
@@ -513,433 +781,6 @@ ShallowWrapper {
           "type": "div",
         },
       ],
-      "type": [Function],
-    },
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <MuiThemeProvider
-          theme={Object {}}
-        >
-          <WithStyles(AppBar)
-            title="Registration"
-          >
-            <WithStyles(Toolbar)>
-              <WithStyles(Typography)
-                color="inherit"
-                variant="h6"
-              >
-                Registration Page
-              </WithStyles(Typography)>
-            </WithStyles(Toolbar)>
-          </WithStyles(AppBar)>
-          <div>
-            <form
-              autoComplete="off"
-              className="Register-container-1"
-              noValidate={true}
-              onSubmit={[Function]}
-            >
-              <TextField
-                autoComplete="email"
-                className="Register-textField-2"
-                id="register-email-input"
-                label="Email"
-                margin="normal"
-                name="email"
-                onChange={[Function]}
-                required={false}
-                select={false}
-                type="email"
-                variant="outlined"
-              />
-              <TextField
-                autoComplete="current-password"
-                className="Register-textField-2"
-                id="register-password-input"
-                label="Password"
-                margin="normal"
-                name="password"
-                onChange={[Function]}
-                required={false}
-                select={false}
-                type="password"
-                variant="outlined"
-              />
-              <WithStyles(Button)
-                className="Register-button-3"
-                color="primary"
-                id="register-button"
-                type="submit"
-                variant="outlined"
-              >
-                Register
-              </WithStyles(Button)>
-            </form>
-            <div
-              className="Register-smallContainer-5"
-            >
-              <Link
-                className="Register-link-6"
-                id="login-page"
-                replace={false}
-                title="Login"
-                to="/"
-              >
-                Back to Login Page
-              </Link>
-            </div>
-          </div>
-        </MuiThemeProvider>,
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": Array [
-            <WithStyles(AppBar)
-              title="Registration"
-            >
-              <WithStyles(Toolbar)>
-                <WithStyles(Typography)
-                  color="inherit"
-                  variant="h6"
-                >
-                  Registration Page
-                </WithStyles(Typography)>
-              </WithStyles(Toolbar)>
-            </WithStyles(AppBar)>,
-            <div>
-              <form
-                autoComplete="off"
-                className="Register-container-1"
-                noValidate={true}
-                onSubmit={[Function]}
-              >
-                <TextField
-                  autoComplete="email"
-                  className="Register-textField-2"
-                  id="register-email-input"
-                  label="Email"
-                  margin="normal"
-                  name="email"
-                  onChange={[Function]}
-                  required={false}
-                  select={false}
-                  type="email"
-                  variant="outlined"
-                />
-                <TextField
-                  autoComplete="current-password"
-                  className="Register-textField-2"
-                  id="register-password-input"
-                  label="Password"
-                  margin="normal"
-                  name="password"
-                  onChange={[Function]}
-                  required={false}
-                  select={false}
-                  type="password"
-                  variant="outlined"
-                />
-                <WithStyles(Button)
-                  className="Register-button-3"
-                  color="primary"
-                  id="register-button"
-                  type="submit"
-                  variant="outlined"
-                >
-                  Register
-                </WithStyles(Button)>
-              </form>
-              <div
-                className="Register-smallContainer-5"
-              >
-                <Link
-                  className="Register-link-6"
-                  id="login-page"
-                  replace={false}
-                  title="Login"
-                  to="/"
-                >
-                  Back to Login Page
-                </Link>
-              </div>
-            </div>,
-          ],
-          "theme": Object {},
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": <WithStyles(Toolbar)>
-                <WithStyles(Typography)
-                  color="inherit"
-                  variant="h6"
-                >
-                  Registration Page
-                </WithStyles(Typography)>
-              </WithStyles(Toolbar)>,
-              "title": "Registration",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": <WithStyles(Typography)
-                  color="inherit"
-                  variant="h6"
-                >
-                  Registration Page
-                </WithStyles(Typography)>,
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "children": "Registration Page",
-                  "color": "inherit",
-                  "variant": "h6",
-                },
-                "ref": null,
-                "rendered": "Registration Page",
-                "type": [Function],
-              },
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": Array [
-                <form
-                  autoComplete="off"
-                  className="Register-container-1"
-                  noValidate={true}
-                  onSubmit={[Function]}
-                >
-                  <TextField
-                    autoComplete="email"
-                    className="Register-textField-2"
-                    id="register-email-input"
-                    label="Email"
-                    margin="normal"
-                    name="email"
-                    onChange={[Function]}
-                    required={false}
-                    select={false}
-                    type="email"
-                    variant="outlined"
-                  />
-                  <TextField
-                    autoComplete="current-password"
-                    className="Register-textField-2"
-                    id="register-password-input"
-                    label="Password"
-                    margin="normal"
-                    name="password"
-                    onChange={[Function]}
-                    required={false}
-                    select={false}
-                    type="password"
-                    variant="outlined"
-                  />
-                  <WithStyles(Button)
-                    className="Register-button-3"
-                    color="primary"
-                    id="register-button"
-                    type="submit"
-                    variant="outlined"
-                  >
-                    Register
-                  </WithStyles(Button)>
-                </form>,
-                <div
-                  className="Register-smallContainer-5"
-                >
-                  <Link
-                    className="Register-link-6"
-                    id="login-page"
-                    replace={false}
-                    title="Login"
-                    to="/"
-                  >
-                    Back to Login Page
-                  </Link>
-                </div>,
-              ],
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "autoComplete": "off",
-                  "children": Array [
-                    <TextField
-                      autoComplete="email"
-                      className="Register-textField-2"
-                      id="register-email-input"
-                      label="Email"
-                      margin="normal"
-                      name="email"
-                      onChange={[Function]}
-                      required={false}
-                      select={false}
-                      type="email"
-                      variant="outlined"
-                    />,
-                    <TextField
-                      autoComplete="current-password"
-                      className="Register-textField-2"
-                      id="register-password-input"
-                      label="Password"
-                      margin="normal"
-                      name="password"
-                      onChange={[Function]}
-                      required={false}
-                      select={false}
-                      type="password"
-                      variant="outlined"
-                    />,
-                    <WithStyles(Button)
-                      className="Register-button-3"
-                      color="primary"
-                      id="register-button"
-                      type="submit"
-                      variant="outlined"
-                    >
-                      Register
-                    </WithStyles(Button)>,
-                  ],
-                  "className": "Register-container-1",
-                  "noValidate": true,
-                  "onSubmit": [Function],
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "autoComplete": "email",
-                      "className": "Register-textField-2",
-                      "id": "register-email-input",
-                      "label": "Email",
-                      "margin": "normal",
-                      "name": "email",
-                      "onChange": [Function],
-                      "required": false,
-                      "select": false,
-                      "type": "email",
-                      "variant": "outlined",
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "autoComplete": "current-password",
-                      "className": "Register-textField-2",
-                      "id": "register-password-input",
-                      "label": "Password",
-                      "margin": "normal",
-                      "name": "password",
-                      "onChange": [Function],
-                      "required": false,
-                      "select": false,
-                      "type": "password",
-                      "variant": "outlined",
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "children": "Register",
-                      "className": "Register-button-3",
-                      "color": "primary",
-                      "id": "register-button",
-                      "type": "submit",
-                      "variant": "outlined",
-                    },
-                    "ref": null,
-                    "rendered": "Register",
-                    "type": [Function],
-                  },
-                ],
-                "type": "form",
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": <Link
-                    className="Register-link-6"
-                    id="login-page"
-                    replace={false}
-                    title="Login"
-                    to="/"
-                  >
-                    Back to Login Page
-                  </Link>,
-                  "className": "Register-smallContainer-5",
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "children": "Back to Login Page",
-                    "className": "Register-link-6",
-                    "id": "login-page",
-                    "replace": false,
-                    "title": "Login",
-                    "to": "/",
-                  },
-                  "ref": null,
-                  "rendered": "Back to Login Page",
-                  "type": [Function],
-                },
-                "type": "div",
-              },
-            ],
-            "type": "div",
-          },
-        ],
-        "type": [Function],
-      },
       "type": "div",
     },
   ],

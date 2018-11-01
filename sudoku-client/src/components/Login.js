@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -33,6 +32,9 @@ const styles = theme => ({
   para: {
     margin: "auto",
     paddingBottom: "10px"
+  },
+  error: {
+    color: "red"
   }
 });
 
@@ -41,6 +43,7 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
+      error: null,
       email: null,
       password: null
     };
@@ -63,61 +66,87 @@ class Login extends React.Component {
         "Content-Type": "application/json"
       }
     })
-      .then(response => response.json())
-      .then(user => console.log(`Login ${user}`))
-      .catch(err => console.log(err));
+      .then(
+        response =>
+          response.ok
+            ? response.json()
+            : Promise.reject("Invalid response from server")
+      )
+      .then(({ user, token }) => {
+        console.log(user);
+        window.localStorage.setItem("token", token);
+        console.log("Welcome back", user);
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        this.setState({ error: err.message });
+        console.log(err);
+      });
   };
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <MuiThemeProvider theme={{}}>
-          <div>
-            <AppBar title="Login">
-              <Toolbar>
-                <Typography variant="h6" color="inherit">
-                  Login Page
-                </Typography>
-              </Toolbar>
-            </AppBar>
-            <form
-              className={classes.container}
-              noValidate
-              autoComplete="off"
-              onSubmit={this.handleSubmit}
-            >
-              <TextField
-                id="outlined-email-input"
-                label="Email"
-                className={classes.textField}
-                type="email"
-                name="email"
-                autoComplete="email"
-                margin="normal"
+        <div>
+          <AppBar title="Login">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                Login Page
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <form
+            className={classes.container}
+            noValidate
+            autoComplete="off"
+            onSubmit={this.handleSubmit}
+          >
+            {this.state.error && (
+              <p className={classes.error}>{this.state.error}</p>
+            )}
+            <TextField
+              id="login-email-input"
+              label="Email"
+              className={classes.textField}
+              type="email"
+              name="email"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              onChange={event => this.handleChange(event, "email")}
+            />
+            <TextField
+              id="login-password-input"
+              label="Password"
+              className={classes.textField}
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+              variant="outlined"
+              onChange={event => this.handleChange(event, "password")}
+            />
+            <div className={classes.button}>
+              <Button
+                id="login-button"
+                type="Submit"
                 variant="outlined"
-                onChange={event => this.handleChange(event, "email")}
-              />
-              <TextField
-                id="outlined-password-input"
-                label="Password"
-                className={classes.textField}
-                type="password"
-                autoComplete="current-password"
-                margin="normal"
-                variant="outlined"
-                onChange={event => this.handleChange(event, "password")}
-              />
-              <div className={classes.button}>
-                <Button type="Submit" variant="outlined" color="primary">
-                  Login
-                </Button>
-              </div>
-            </form>
-            <p className={classes.para}>Not registered yet? Register Now!</p>
-            <Link to="/register">Register</Link>
-          </div>
-        </MuiThemeProvider>
+                color="primary"
+              >
+                {"Login"}
+              </Button>
+            </div>
+          </form>
+          <p className={classes.para}>Not registered yet? Register Now!</p>
+          <Link
+            to="/register"
+            className={classes.link}
+            id="register-page"
+            title="Register"
+          >
+            {"Register"}
+          </Link>
+        </div>
       </div>
     );
   }

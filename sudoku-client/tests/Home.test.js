@@ -5,10 +5,15 @@ import Home from "../src/components/Home";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("Home component", () => {
-  test("renders", () => {
-    const home = shallow(<Home />);
+let component = null;
 
-    expect(home.exists()).toBe(true);
+describe("Home component", () => {
+  beforeEach(() => {
+    component = shallow(<Home />);
+  });
+
+  it("renders correctly", () => {
+    expect(component).toMatchSnapshot();
+    expect(component.dive()).toMatchSnapshot();
   });
 });

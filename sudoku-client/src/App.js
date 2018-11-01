@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
-import Login from "./components/Login";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Register from "./components/Register";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Home from './components/Home';
+import Home from "./components/Home";
+import Login from "./components/Login";
+
 
 class App extends Component {
   state = {
@@ -32,15 +34,17 @@ class App extends Component {
   render() {
     //console.log(this.state.users);
     return (
-      <div className="App">
-        <Router>
-          <div>
-            <Route exact path="/" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/home" exact component={Home} />
-          </div>
-        </Router>
-      </div>
+      <CssBaseline>
+        <div className="App">
+          <Router>
+            <div>
+              <Route path="/register" component={Register} />
+              <Route path="/login" exact component={Login} />
+              <Route exact path="/" component={Home} />
+            </div>
+          </Router>
+        </div>
+      </CssBaseline>
     );
   }
 }

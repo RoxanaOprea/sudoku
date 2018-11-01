@@ -1,17 +1,13 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const session = require("express-session");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const dotenv = require("dotenv");
-const uuid = require("uuid");
-const FileStore = require("session-file-store")(session);
 const passport = require("passport");
 const User = require("./data");
 const LocalStrategy = require("passport-local").Strategy;
 const axios = require("axios");
-const bcrypt = require("bcrypt-nodejs");
-const util = require("util");
+const jwtValidator = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const config = require("./config");
 
@@ -31,19 +27,6 @@ passport.use(
   })
 );
 
-// tell passport how to serialize the user
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-// deserialize user
-passport.deserializeUser((id, done) => {
-  axios
-    .get(`http://localhost:3001/users/${id}`)
-    .then(res => done(null, res.data))
-    .catch(error => done(error, false));
-});
-
 (async function connectToDatabase() {
   // connects our back end code with the database
   const { DB_HOST, DB_PORT, DB_NAME } = process.env;
@@ -59,29 +42,23 @@ passport.deserializeUser((id, done) => {
   }
 
   const app = express();
-  // add & configure middleware
-  app.use(
-    session({
-      genid: req => {
-        console.log("Inside session middleware genid function");
-        console.log(`Request object sessionID from client: ${req.sessionID}`);
-        return uuid(); // use UUIDs for session IDs
-      },
-      store: new FileStore(),
-      secret: "keyboard cat",
-      resave: false,
-      saveUninitialized: true
-    })
-  );
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-  // (optional) only made for logging and
   // bodyParser, parses the request body to be a readable json format
   app
     .use(bodyParser.urlencoded({ extended: false }))
     .use(bodyParser.json())
     .use(logger("dev"))
+    .use(passport.initialize())
+    .use(
+      jwtValidator({ secret: config.secret }).unless({
+        path: ["/login", "/register"]
+      })
+    )
+    .use(function(err, req, res, next) {
+      if (err.name === "UnauthorizedError") {
+        return res.status(401).send("Invalid token");
+      }
+      next();
+    })
     .use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
@@ -102,50 +79,28 @@ passport.deserializeUser((id, done) => {
     newUser.save((err, savedUser) => {
       if (err) {
         console.log(err);
-        return res.status(500).send();
+        return res.sendStatus(500);
       }
-      console.log(JSON.stringify(newUser));
-      return res.status(200).send(JSON.stringify(newUser));
+      console.log(JSON.stringify(savedUser));
+      return res.send(newUser);
     });
   });
 
-  app.post("/login", (req, res, next) => {
-    const email = res.body.email;
-    const password = res.body.password;
-
-    // User.findOne({ email: req.body.email }, (req, err) => {
-    //   if (err) throw err;
-    //   if (!user) {
-    //     res.status(401).json({ message: "User not found!" });
-    //   } else if (user) {
-    //     if (passport.authenticate(req.body.password)) {
-    //       res.status(401).json({ message: "Wrong password" });
-    //     } else {
-    //       return res.json({
-    //         token: jwt.sign({ email: user.email, id: user.id }, "RESTFULAPIs")
-    //       });
-    //     }
-    //   }
-    // });
-
-    console.log("Inside POST /login callback");
-    passport.authenticate("local", (err, user, info) => {
-      console.log("Inside passport.authenticate() callback");
-      req.login(user, err => {
-        console.log(user);
-        return res.send("Autentificare cu succes");
-      });
-    })(req, res, next);
-  });
+  app.post(
+    "/login",
+    passport.authenticate("local", { session: false }),
+    (req, res) => {
+      const token = jwt.sign(
+        JSON.parse(JSON.stringify(req.user)),
+        config.secret
+      );
+      res.send({ user: req.user, token });
+    }
+  );
 
   app.get("/authrequired", (req, res) => {
-    console.log("Inside GET /authrequired callback");
     console.log(`User authenticated? ${req.isAuthenticated()}`);
-    if (req.isAuthenticated()) {
-      res.send("you hit the authentication endpoint\n");
-    } else {
-      res.redirect("/");
-    }
+    res.send({ authenticated: req.isAuthenticated() });
   });
 
   app.listen(process.env.PORT);

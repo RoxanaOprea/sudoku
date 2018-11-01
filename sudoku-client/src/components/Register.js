@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -33,6 +32,9 @@ const styles = theme => ({
   },
   link: {
     marginRight: "50px"
+  },
+  error: {
+    color: "red"
   }
 });
 
@@ -41,6 +43,7 @@ class Register extends React.Component {
     super(props);
 
     this.state = {
+      error: null,
       email: null,
       password: null,
       newUsers: []
@@ -66,17 +69,21 @@ class Register extends React.Component {
       }
     })
       .then(response => {
-        return response.json();
+        return response.ok
+          ? response.json()
+          : Promise.reject("Invalid response from server");
       })
       .then(res => {
         const users = this.state.newUsers;
         users.push({ email: res.email, password: res.password });
 
         this.setState({ newUsers: users });
-        this.props.history.push("/home");
+        this.props.history.push("/");
       })
-      .catch(err => console.log(err));
-    this.props.history.push("/home");
+      .catch(err => {
+        this.setState({ error: err.message });
+        console.log(err);
+      });
   };
 
   render() {
@@ -84,60 +91,61 @@ class Register extends React.Component {
 
     return (
       <div>
-        <MuiThemeProvider theme={{}}>
-          <AppBar title="Registration">
-            <Toolbar>
-              <Typography variant="h6" color="inherit">
-                {"Registration Page"}
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <div>
-            <form
-              className={classes.container}
-              noValidate
-              autoComplete="off"
-              onSubmit={this.handleSubmit}
+        <AppBar title="Registration">
+          <Toolbar>
+            <Typography variant="h6" color="inherit">
+              {"Registration Page"}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <div>
+          <form
+            className={classes.container}
+            noValidate
+            autoComplete="off"
+            onSubmit={this.handleSubmit}
+          >
+            {this.state.error && (
+              <p className={classes.error}>{this.state.error}</p>
+            )}
+            <TextField
+              id="register-email-input"
+              label="Email"
+              className={classes.textField}
+              type="email"
+              name="email"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              onChange={event => this.handleChange(event, "email")}
+            />
+            <TextField
+              id="register-password-input"
+              label="Password"
+              className={classes.textField}
+              type="password"
+              name="password"
+              autoComplete="current-password"
+              margin="normal"
+              variant="outlined"
+              onChange={event => this.handleChange(event, "password")}
+            />
+            <Button
+              id="register-button"
+              type="submit"
+              variant="outlined"
+              color="primary"
+              className={classes.button}
             >
-              <TextField
-                id="register-email-input"
-                label="Email"
-                className={classes.textField}
-                type="email"
-                name="email"
-                autoComplete="email"
-                margin="normal"
-                variant="outlined"
-                onChange={event => this.handleChange(event, "email")}
-              />
-              <TextField
-                id="register-password-input"
-                label="Password"
-                className={classes.textField}
-                type="password"
-                name="password"
-                autoComplete="current-password"
-                margin="normal"
-                variant="outlined"
-                onChange={event => this.handleChange(event, "password")}
-              />
-              <Button
-                id="register-button"
-                type="submit"
-                variant="outlined"
-                color="primary"
-                className={classes.button}
-              >
-                {"Register"}
-              </Button>
-            </form>
-            <div className={classes.smallContainer}>
-              <Link to="/" className={classes.link} id="login-page" title="Login">
-                {"Back to Login Page"}
-              </Link>
-            </div>
+              {"Register"}
+            </Button>
+          </form>
+          <div className={classes.smallContainer}>
+            <Link to="/login" className={classes.link} id="login-page" title="Login">
+              {"Back to Login Page"}
+            </Link>
           </div>
-        </MuiThemeProvider>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Register from "../src/components/Register";
+import Login from "../src/components/Login";
 //import { spy } from "sinon";
 //import toJson from "enzyme-to-json";
 // import Link from "react-router-dom";
@@ -10,9 +10,9 @@ jest.mock("react-dom");
 
 let component = null;
 
-describe("Register component", () => {
+describe("Login component", () => {
   beforeEach(() => {
-    component = shallow(<Register />);
+    component = shallow(<Login />);
   });
 
   it("renders correctly", () => {
@@ -25,29 +25,30 @@ describe("Register component", () => {
   });
 
   it("renders a text field for email", () => {
-    expect(component.dive().find("#register-email-input").length).toEqual(1);
+    expect(component.dive().find("#login-email-input").length).toEqual(1);
   });
 
   it("renders a text field for password", () => {
-    expect(component.dive().find("#register-password-input").length).toEqual(1);
+    expect(component.dive().find("#login-password-input").length).toEqual(1);
   });
 
   it("renders a button", () => {
-    expect(component.dive().find("#register-button").length).toEqual(1);
+    expect(component.dive().find("#login-button").length).toEqual(1);
   });
 
   it("renders a link", () => {
-    expect(component.dive().find("#login-page").length).toEqual(1);
+    expect(component.dive().find("#register-page").length).toEqual(1);
   });
 });
 
-describe("Register component actions", () => {
-  beforeEach(() => {
-    component = shallow(<Register />).dive();
+
+describe("Login component actions", () => {
+   beforeEach(() => {
+     component = shallow(<Login />).dive();
   });
 
   it("should respond to change event and change the state for email field", () => {
-    const emailInput = component.find("#register-email-input");
+    const emailInput = component.find("#login-email-input");
     emailInput.first().simulate("change", {
       target: { name: "email", value: "test@test.com" }
     });
@@ -56,7 +57,7 @@ describe("Register component actions", () => {
   });
 
   it("should respond to change event and change the state for password field", () => {
-    const passwordInput = component.find("#register-password-input");
+    const passwordInput = component.find("#login-password-input");
     passwordInput.first().simulate("change", {
       target: { name: "password", value: "test" }
     });
@@ -64,21 +65,5 @@ describe("Register component actions", () => {
     expect(component.instance().state.password).toEqual("test");
   });
 
-  // it("when the form is submitted the ev is cancelled", () => {
-  //   let prevent = false;
-  //   component.find("form").simulate("submit", {
-  //     preventDefault: () => {
-  //       prevent = true;
-  //     }
-  //   });
-  //   expect(prevent).toBe(true);
-  // })
+ });
 
-  // it('calls "handleSubmit()" on button click', () => {
-  //   const wrapper = shallow(<Register />);
-  //   const spy = jest.spyOn(wrapper.instance(), "handleSubmit()");
-  //   wrapper.update();
-  //   wrapper.dive().find('form').simulate('click');
-  //   expect(spy).toHaveBeenCalled();
-  // });
-});
