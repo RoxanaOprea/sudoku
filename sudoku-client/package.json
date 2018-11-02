@@ -21,9 +21,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --verbose",
-    "test:watch": "jest --watchAll --verbose",
-    "test:coverage": "jest --verbose --coverage",
+    "test": "jest",
+    "test:watch": "jest --watchAll --verbose false",
+    "test:coverage": "jest --verbose false --coverage",
     "eject": "react-scripts eject"
   },
   "browserslist": [
@@ -52,6 +52,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0",
     "jest": "^23.6.0",
+    "jest-fetch-mock": "^1.6.6",
     "react-router-enzyme-context": "^1.2.0"
   },
   "eslintConfig": {

@@ -57,7 +57,7 @@ class Register extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    fetch("http://localhost:3001/register", {
+    return fetch("http://localhost:3001/register", {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,
@@ -65,25 +65,25 @@ class Register extends React.Component {
       }),
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        "Accept": "application/json"
       }
     })
-      .then(response => {
-        return response.ok
-          ? response.json()
-          : Promise.reject("Invalid response from server");
-      })
-      .then(res => {
-        const users = this.state.newUsers;
-        users.push({ email: res.email, password: res.password });
+    .then(response => {
+      return response.ok
+        ? response.json()
+        : Promise.reject("Invalid response from server");
+    })
+    .then(res => {
+      const users = this.state.newUsers;
+      users.push({ email: res.email, password: res.password });
 
-        this.setState({ newUsers: users });
-        this.props.history.push("/");
-      })
-      .catch(err => {
-        this.setState({ error: err.message });
-        console.log(err);
-      });
+      this.setState({ newUsers: users });
+      this.props.history.push("/");
+    })
+    .catch(err => {
+      this.setState({ error: err.message });
+      console.log(err);
+    });
   };
 
   render() {
@@ -141,7 +141,12 @@ class Register extends React.Component {
             </Button>
           </form>
           <div className={classes.smallContainer}>
-            <Link to="/login" className={classes.link} id="login-page" title="Login">
+            <Link
+              to="/login"
+              className={classes.link}
+              id="login-page"
+              title="Login"
+            >
               {"Back to Login Page"}
             </Link>
           </div>

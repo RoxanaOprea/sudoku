@@ -1,3 +1,1 @@
-module.exports = {
-    
-}
+global.fetch = require('jest-fetch-mock')

@@ -1,10 +1,12 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import Register from "../src/components/Register";
-//import { spy } from "sinon";
-//import toJson from "enzyme-to-json";
+import toJson from "enzyme-to-json";
+import { EEXIST } from "constants";
 // import Link from "react-router-dom";
 // import { render } from "react-dom";
+
+//const sinon = require('sinon');
 
 jest.mock("react-dom");
 
@@ -64,21 +66,61 @@ describe("Register component actions", () => {
     expect(component.instance().state.password).toEqual("test");
   });
 
-  // it("when the form is submitted the ev is cancelled", () => {
-  //   let prevent = false;
-  //   component.find("form").simulate("submit", {
-  //     preventDefault: () => {
-  //       prevent = true;
-  //     }
-  //   });
-  //   expect(prevent).toBe(true);
-  // })
+  it("when the form is submitted the ev is cancelled", () => {
+    let prevent = false;
+    component.find("form").simulate("submit", {
+      preventDefault: () => {
+        prevent = true;
+      }
+    });
+    expect(prevent).toBe(true);
+  });
+});
 
-  // it('calls "handleSubmit()" on button click', () => {
-  //   const wrapper = shallow(<Register />);
-  //   const spy = jest.spyOn(wrapper.instance(), "handleSubmit()");
-  //   wrapper.update();
-  //   wrapper.dive().find('form').simulate('click');
-  //   expect(spy).toHaveBeenCalled();
-  // });
+describe("handleSubmit", () => {
+  let renderedComponent;
+  let user;
+  let mockEvent;
+
+  beforeEach(() => {
+    user = { email: "test@test.com", password: "test" };
+    renderedComponent = shallow(<Register />).dive();
+    mockEvent = { preventDefault: jest.fn() };
+
+    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+      ok: 200, 
+      json: () => Promise.resolve(user)
+    }))
+  });
+  
+  it("calls fetch with the correct data when adding a new user", () => {
+    renderedComponent.setState({ email: user.email, password: user.password })
+    const expected = {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: { 
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      }
+    };
+
+    const arrayNewUsers = renderedComponent.instance().state.newUsers;
+    arrayNewUsers.push(user);
+    
+    renderedComponent.setState({ newUsers: arrayNewUsers });
+    renderedComponent.instance().handleSubmit(mockEvent);
+
+    expect(window.fetch).toHaveBeenCalledWith("http://localhost:3001/register", expected);
+  });
+
+  it("throws an error if fetch fails", () => {
+    window.fetch = jest
+      .fn()
+      .mockImplementation(() => Promise.reject(new Error("Fetch failed")));
+    const expected = "Fetch failed";
+
+    expect(
+      renderedComponent.instance().handleSubmit(mockEvent)
+    ).rejects.toThrow(expected);
+  });
 });
