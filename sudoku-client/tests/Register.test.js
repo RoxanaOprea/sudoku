@@ -1,12 +1,10 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { shallow } from "enzyme";
 import Register from "../src/components/Register";
-import toJson from "enzyme-to-json";
-import { EEXIST } from "constants";
+//import toJson from "enzyme-to-json";
 // import Link from "react-router-dom";
 // import { render } from "react-dom";
 
-//const sinon = require('sinon');
 
 jest.mock("react-dom");
 
@@ -87,30 +85,35 @@ describe("handleSubmit", () => {
     renderedComponent = shallow(<Register />).dive();
     mockEvent = { preventDefault: jest.fn() };
 
-    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
-      ok: 200, 
-      json: () => Promise.resolve(user)
-    }))
+    window.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        ok: 200,
+        json: () => Promise.resolve(user)
+      })
+    );
   });
-  
+
   it("calls fetch with the correct data when adding a new user", () => {
-    renderedComponent.setState({ email: user.email, password: user.password })
+    renderedComponent.setState({ email: user.email, password: user.password });
     const expected = {
       method: "POST",
       body: JSON.stringify(user),
-      headers: { 
+      headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        Accept: "application/json"
       }
     };
 
     const arrayNewUsers = renderedComponent.instance().state.newUsers;
     arrayNewUsers.push(user);
-    
+
     renderedComponent.setState({ newUsers: arrayNewUsers });
     renderedComponent.instance().handleSubmit(mockEvent);
 
-    expect(window.fetch).toHaveBeenCalledWith("http://localhost:3001/register", expected);
+    expect(window.fetch).toHaveBeenCalledWith(
+      "http://localhost:3001/register",
+      expected
+    );
   });
 
   it("throws an error if fetch fails", () => {
