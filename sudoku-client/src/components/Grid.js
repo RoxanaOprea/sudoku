@@ -3,6 +3,9 @@ import GridList from "@material-ui/core/GridList";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import utils from "../js/helpers/utils";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 const styles = {
   root: {
@@ -12,7 +15,9 @@ const styles = {
     overflow: "hidden"
   },
   gridList: {
-    width: 500
+    width: 500,
+    marginTop: "120px",
+    margin: "auto"
   },
   subheader: {
     width: "100%"
@@ -34,6 +39,15 @@ class ConnectedGrid extends React.Component {
   render() {
     return (
       <div style={styles.root}>
+       <div>
+          <AppBar title="Grid">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                Sudoku Game
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        </div>
         <GridList cellHeight={60} style={styles.gridList} cols={9} spacing={0}>
           {this.props.sudokuTable.map((row, indexR) =>
             row.cols.map((cell, indexC) => (

@@ -45,7 +45,8 @@ class Login extends React.Component {
     this.state = {
       error: null,
       email: null,
-      password: null
+      password: null,
+      existingUsers: []
     };
   }
 
@@ -76,7 +77,7 @@ class Login extends React.Component {
         console.log(user);
         window.localStorage.setItem("token", token);
         console.log("Welcome back", user);
-        this.props.history.push("/");
+        this.props.history.push("/grid");
       })
       .catch(err => {
         this.setState({ error: err.message });

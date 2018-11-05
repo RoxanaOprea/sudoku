@@ -78,7 +78,7 @@ class Register extends React.Component {
       users.push({ email: res.email, password: res.password });
 
       this.setState({ newUsers: users });
-      this.props.history.push("/");
+      this.props.history.push("/grid");
     })
     .catch(err => {
       this.setState({ error: err.message });

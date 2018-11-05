@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import Grid from "./components/Grid";
 
 
 class App extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Route path="/login" exact component={Login} />
               <Route exact path="/" component={Home} />
+              <Route path="/grid" component={Grid}></Route>
             </div>
           </Router>
         </div>
