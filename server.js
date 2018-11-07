@@ -14,7 +14,7 @@ const config = require("./config");
 // Load configuration from .env file. Exit if any error occurs
 const { error } = dotenv.config();
 if (error) {
-  console.error(error);
+  console.log(error);
   process.exit(1);
 }
 
@@ -27,7 +27,7 @@ passport.use(
   })
 );
 
-(async function connectToDatabase() {
+async function connectToDatabase(callback) {
   // connects our back end code with the database
   const { DB_HOST, DB_PORT, DB_NAME } = process.env;
   const dbRoute = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
@@ -72,16 +72,12 @@ passport.use(
   app.post("/register", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-
-    console.log({ email, password });
-
     const newUser = new User({ email, password });
+
     newUser.save((err, savedUser) => {
       if (err) {
-        console.log(err);
         return res.sendStatus(500);
       }
-      console.log(JSON.stringify(savedUser));
       return res.send(newUser);
     });
   });
@@ -99,9 +95,28 @@ passport.use(
   );
 
   app.get("/authrequired", (req, res) => {
-    console.log(`User authenticated? ${req.isAuthenticated()}`);
+    // console.log(`User authenticated? ${req.isAuthenticated()}`);
     res.send({ authenticated: req.isAuthenticated() });
   });
 
-  app.listen(process.env.PORT);
-})();
+  
+  var server = app.listen(process.env.PORT, function () {
+    console.log('started');
+
+    if (callback) {
+        callback();
+    }
+  });
+
+  server.on('close', function () {
+      console.log('closed');
+  });
+
+  return server;
+};
+
+if (require.main === module) {
+  connectToDatabase();
+}
+
+exports.connectToDatabase = connectToDatabase;
