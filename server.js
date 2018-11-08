@@ -72,7 +72,7 @@ async function connectToDatabase(callback) {
   app.post("/register", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    const newUser = new User({ email, password });
+    const newUser = new User({ email, password  });
 
     newUser.save((err, savedUser) => {
       if (err) {
